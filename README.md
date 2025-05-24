@@ -11,71 +11,73 @@ All Python is written in Python3.
 
 To run both defective versions of a program against their tests, as well as the corrected Python version, use the test driver:
 
-Updates and Progress (2025)
-✅ Current Changes
-🔧 Fixed a bug in tester.py to improve reliability and output clarity.
+🛠️ Current Progress: Debug Agent for QuixBugs
+We are currently building a LangChain-based autonomous debugging agent to automatically fix buggy algorithms in the QuixBugs benchmark.
 
-🧠 Added a new AI-based repair agent (debug_agent.py) built using LangChain and Gemini-2:
+✅ Changes Made So Far
+Fixed a bug in tester.py to ensure accurate and consistent results when testing the algorithms.
 
-Includes tools to read/write code, run programs, search documentation, and analyze errors.
+Developed debug_agent.py:
 
-Uses ReAct-style prompting with LangChain's AgentExecutor.
+Uses LangChain + Gemini (Google Generative AI) with the ReAct paradigm.
 
-Automatically debugs, rewrites, and validates Python implementations.
+Equipped with tools for:
 
-🔁 Added testall.py — iterates over all buggy programs and runs the debug agent sequentially.
+File reading and writing
 
-📋 Added testerall2.py — similar to testall.py but with improved logging and visibility for debugging success/failure cases.
+Code execution
 
-🧪 Day 1 Observations and Considerations
-⚠️ Agent fails on most graph-based algorithms — this is primarily due to missing or inadequate test cases.
+Algorithm testing
 
-🔁 Infinite loops observed in some programs like knapsack — suggests the need for better timeouts or early-stopping logic.
+Python docs and DuckDuckGo search
 
-🐢 Agent execution is currently slow, especially without memory or history of past runs.
+(Optional) Error analysis tools
 
-🔍 Lacks built-in error analysis visualization tools — difficult to trace fix efficacy without manual inspection.
+Built testall.py:
 
-🧠 RAG and memory mechanisms are not yet implemented — adding them is a consideration for Day 2+.
+Automatically iterates over all buggy programs and invokes the debug agent on each.
 
-Future Plans
-🧠 Integrate Retrieval-Augmented Generation (RAG) to allow context-aware bug fixing using StackOverflow/code snippets.
+Built testerall2.py:
 
-🧠 Add memory/history tracking to let the agent recall past attempts and iterate better.
+Enhanced logging and testing for batch evaluation.
 
-📈 Visualize fixing success rates and patterns using a dashboard or simple report.
+🐞 Day 1 Observations & Known Limitations
+❌ The agent fails for all graph-based algorithms (e.g., BFS, DFS) due to lack of test coverage.
 
-🧪 Add or improve test cases for currently uncovered or edge-case-heavy algorithms.
+🔁 Algorithms like Knapsack enter an infinite loop; termination conditions need stricter handling.
 
-⏱ Optimize for speed and determinism, possibly via caching and smarter iterations.
+🐢 Agent is very slow, especially when invoking search tools or running multiple iterations.
 
-Running the Debug Agent
-To automatically attempt fixing a specific program:
+❌ No RAG (Retrieval-Augmented Generation) or memory module yet. Will be added on Day 2.
 
+❌ Error analysis tool exists but not actively used in current agent loop.
+
+⚠️ No model-based validation or confidence metrics implemented.
+
+🚀 Planned Improvements
+For Day 2:
+Add memory (LangChain Memory or custom implementation).
+
+Integrate a RAG system to fetch relevant bug fixes/code patterns dynamically.
+
+Use error pattern analysis to improve early diagnosis.
+
+Add graph algorithm testcases to tester.py.
+
+Build a performance dashboard for agent benchmarking.
+
+🧪 Quick Start: Running the Debug Agent
 bash
 Copy
 Edit
-python3 debug_agent.py <program_name>
-To run the agent across all programs:
+# Fix a specific algorithm
+python debug_agent.py <algorithm_name>
 
-bash
-Copy
-Edit
-python3 testall.py
-# or for detailed logs:
-python3 testerall2.py
-Notes
-The debug agent uses LangChain and Gemini as the base LLM for ReAct-style fixing. Make sure to configure your environment with a valid GOOGLE_API_KEY.
+# Run the agent over all QuixBugs programs
+python testall.py
 
-vbnet
-Copy
-Edit
+# Test all original/fixed programs with enhanced logging
+python testerall2.py
 
-# or for detailed logs:
-python3 testerall2.py
-Notes
-The debug agent uses LangChain and Gemini as the base LLM for ReAct-style fixing. Make sure to configure your environment with a valid GOOGLE_API_KEY.
-
-vbnet
 Copy
 Edit
