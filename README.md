@@ -11,8 +11,6 @@ All Python is written in Python3.
 
 To run both defective versions of a program against their tests, as well as the corrected Python version, use the test driver:
 
-```bash
-python3 tester.py <program_name>
 Updates and Progress (2025)
 ✅ Current Changes
 🔧 Fixed a bug in tester.py to improve reliability and output clarity.
@@ -64,6 +62,15 @@ bash
 Copy
 Edit
 python3 testall.py
+# or for detailed logs:
+python3 testerall2.py
+Notes
+The debug agent uses LangChain and Gemini as the base LLM for ReAct-style fixing. Make sure to configure your environment with a valid GOOGLE_API_KEY.
+
+vbnet
+Copy
+Edit
+
 # or for detailed logs:
 python3 testerall2.py
 Notes
