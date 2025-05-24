@@ -11,7 +11,7 @@ from langchain.agents import create_react_agent, AgentExecutor
 from langchain import hub
 import re
 # Set up API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDmRdVGppLT6FBq3ouKzk1YCxWNdAQTx0s"
+os.environ["GOOGLE_API_KEY"] = ""
 
 class PythonDebugAgent:
     def __init__(self):
