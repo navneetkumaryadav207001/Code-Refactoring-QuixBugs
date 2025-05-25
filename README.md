@@ -58,9 +58,8 @@ To run both defective versions of a program against their tests, as well as the 
 
   <hr>
 
-  <h2>🚀 Plans for Day 2</h2>
+  <h2>🐞 Observations (Day 2)</h2>
   <ul>
-    <li>Add LangChain memory support to allow reasoning across steps.</li>
-    <li>Add RAG-based context injection from past bug fixes.</li>
-    <li>Improve agent loop with better exception handling and retries.</li>
+    <li>Graph based algorithms are working.</li>
+    <li>Everything is almost working just need Some refactoring(hehe)</li>
   </ul>
