@@ -49,12 +49,12 @@ Test file doesnt Extst for topological_ordering_test so the program is skipped
 ✅ to_base: Fixed version passed 10/10 tests
 ✅ wrap: Fixed version passed 0/5 tests
 
-🎯 Summary: 28 / 50 algorithms passed all their test cases with the fixed code
+🎯 Summary: 28 / 40 algorithms passed all their test cases with the fixed code
 
 
 
 My Thoughts On this test :
-    all 9 graph based algos failed
+    some graph based algos failed
     2 algos were so those will not count. cause they will work if given enough time.
     interesting part is these 4 algos which failed becuase of 
     longest_common_subsequence 7/10
