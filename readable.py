@@ -25,7 +25,7 @@ def format_debug_to_markdown(data):
 
 
 # ---- Main Execution ----
-input_file = "log2.json"   # Your input filename
+input_file = "log3.json"   # Your input filename
 output_file = "debug_output.md" # Your output filename
 
 # Read from file

@@ -83,6 +83,7 @@ def main():
         if filename.endswith(".py"):
             algo_name = filename[:-3]
 
+            
             total_algos += 1
             if algo_name == "levenshtein" or algo_name=="knapsack":  # You can comment this line if you want to run these code as well
                 print("skipping levenshtein cause it takes way too long to run it.")

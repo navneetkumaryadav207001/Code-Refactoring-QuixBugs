@@ -44,4 +44,4 @@ skipping levenshtein cause it takes way too long to run it.
 
 Key Observations:
 
-some are failing beacuse api limits reached  5 of , 2 skipped and 4 didnt passed the test
+some are failing beacuse api limits reached  5 , 2 skipped and 4 didnt passed the test

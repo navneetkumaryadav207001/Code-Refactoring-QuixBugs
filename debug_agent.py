@@ -248,7 +248,6 @@ class PythonDebugAgent:
             you can use it for action input though
             """
 
-            time.sleep(2)
             response = self.agent_executor.invoke({"input": fix_prompt})
             
             print("Agent response:")
@@ -284,10 +283,10 @@ def main():
     success = agent.fix_algorithm(algo_name)
     
     if success:
-        print(f"\n✅ Successfully fixed {algo_name}.py")
+        print(f"\n Successfully fixed {algo_name}.py")
         print(f"Fixed code saved to: fixed_programs/{algo_name}.py")
     else:
-            print(f"\n❌ Failed to fix {algo_name}.py")
+            print(f"\n Failed to fix {algo_name}.py")
 
 if __name__ == "__main__":
     main()
