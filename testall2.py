@@ -7,13 +7,11 @@ import re
 
 
 def run_debug_agent(algo_name, logs):
-    print(f"running debug agent for {algo_name}")
     logs[algo_name] = {"debug_agent": ""}
     result = subprocess.run([sys.executable, "debug_agent.py", algo_name], capture_output=True, text=True)
     logs[algo_name]["debug_agent"] += result.stdout
     if result.stderr:
         logs[algo_name]["debug_agent"] += "\n⚠️ Debug Agent Error:\n" + result.stderr
-    print(logs[algo_name])
 
 def create_test_file(algo_name):
     file_path = f"python_testcases/test_{algo_name}.py"
@@ -93,7 +91,9 @@ def main():
             total_algos += 1
             if algo_name == "levenshtein" or algo_name=="knapsack":  # You can comment this line if you want to run these code as well
                 print("skipping levenshtein cause it takes way too long to run it.")
+                os.remove(test_file)
                 continue
+            
             run_debug_agent(algo_name, logs)
 
             fixed_path = os.path.join(fixed_dir, f"{algo_name}.py")
@@ -112,11 +112,11 @@ def main():
             if passed == total and total > 0:
                 passed_algos += 1
 
-            #os.remove(test_file)
+            os.remove(test_file)
 
     print(f"\n🎯 Summary: {passed_algos} / {total_algos} algorithms passed all their test cases with the fixed code")
 
-    with open("log.json", "w") as f:
+    with open("log2.json", "w") as f:
         json.dump(logs, f, indent=2)
 
 if __name__ == "__main__":
