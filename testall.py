@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import re
 
 def run_debug_agent(algo_name):
     print(f"\n🚧 Running debug agent for {algo_name}.py")
@@ -10,27 +11,34 @@ def run_debug_agent(algo_name):
         print("⚠️ Debug Agent Error:\n", result.stderr)
 
 def create_test_file(algo_name):
-    test_code = f'''
-import pytest
-from python_testcases.load_testdata import load_json_testcases
+    file_path = f"python_testcases/test_{algo_name}.py"
 
-if pytest.use_correct:
-    from correct_python_programs.{algo_name} import {algo_name}
-elif pytest.fixed:
-    from fixed_programs.{algo_name} import {algo_name}
-else:
-    from python_programs.{algo_name} import {algo_name}
+    if not os.path.exists(file_path):
+        return ""
+    with open(file_path, "r") as file:
+        content = file.read()
 
-testdata = load_json_testcases({algo_name}.__name__)
+    # Check if `elif pytest.fixed` already exists
+    if "elif pytest.fixed" in content:
+        print(f"`elif pytest.fixed` already present in {file_path}")
+        return file_path
 
-@pytest.mark.parametrize("input_data,expected", testdata)
-def test_{algo_name}(input_data, expected):
-    assert {algo_name}(*input_data) == expected
-'''
-    test_file_path = f"test_{algo_name}.py"
-    with open(test_file_path, "w") as f:
-        f.write(test_code)
-    return test_file_path
+    # Insert elif between if and else
+    pattern = rf"(if pytest\.use_correct:\s*\n\s*from correct_python_programs\.{algo_name} import {algo_name})(\s*\n\s*else:\s*\n\s*from python_programs\.{algo_name} import {algo_name})"
+    replacement = (
+        rf"\1"
+        f"\nelif pytest.fixed:\n    from fixed_programs.{algo_name} import {algo_name}"
+        rf"\2"
+    )
+
+    updated_content, count = re.subn(pattern, replacement, content)
+
+    
+    with open(f"./test_{algo_name}.py", "w") as file:
+        file.write(updated_content)
+    print(f"Patched existing test file: {file_path}")
+
+    return f"./test_{algo_name}.py"
 
 def run_pytest(test_file, flag):
     print(f"\n🧪 Running pytest {flag} for {test_file}")
@@ -46,7 +54,7 @@ def main():
 
     for filename in os.listdir(source_dir):
         if filename.endswith(".py"):
-            algo_name = filename[:-3]  # remove .py
+            algo_name = filename[:-3]  # remove .py\
 
             run_debug_agent(algo_name)
 
@@ -54,9 +62,13 @@ def main():
             if not os.path.exists(fixed_path):
                 print(f"❌ No fixed file found for {algo_name}")
                 continue
+            
 
             test_file = create_test_file(algo_name)
 
+            if not len(test_file):
+                print(f'Test file doesnt Extst for {algo_name}')
+                continue
             # Run against correct version
             run_pytest(test_file, "--correct")
 

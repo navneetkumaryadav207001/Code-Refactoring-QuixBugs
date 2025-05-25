@@ -2,36 +2,47 @@ import os
 import subprocess
 import sys
 import json
+import re
+
+
 
 def run_debug_agent(algo_name, logs):
+    print(f"running debug agent for {algo_name}")
     logs[algo_name] = {"debug_agent": ""}
     result = subprocess.run([sys.executable, "debug_agent.py", algo_name], capture_output=True, text=True)
     logs[algo_name]["debug_agent"] += result.stdout
     if result.stderr:
         logs[algo_name]["debug_agent"] += "\n⚠️ Debug Agent Error:\n" + result.stderr
+    print(logs[algo_name])
 
 def create_test_file(algo_name):
-    test_code = f'''
-import pytest
-from python_testcases.load_testdata import load_json_testcases
+    file_path = f"python_testcases/test_{algo_name}.py"
 
-if pytest.use_correct:
-    from correct_python_programs.{algo_name} import {algo_name}
-elif pytest.fixed:
-    from fixed_programs.{algo_name} import {algo_name}
-else:
-    from python_programs.{algo_name} import {algo_name}
+    if not os.path.exists(file_path):
+        return ""
+    with open(file_path, "r") as file:
+        content = file.read()
 
-testdata = load_json_testcases({algo_name}.__name__)
+    # Check if `elif pytest.fixed` already exists
+    if "elif pytest.fixed" in content:
+        print(f"`elif pytest.fixed` already present in {file_path}")
+        return file_path
 
-@pytest.mark.parametrize("input_data,expected", testdata)
-def test_{algo_name}(input_data, expected):
-    assert {algo_name}(*input_data) == expected
-'''
-    test_file_path = f"test_{algo_name}.py"
-    with open(test_file_path, "w") as f:
-        f.write(test_code)
-    return test_file_path
+    # Insert elif between if and else
+    pattern = rf"(if pytest\.use_correct:\s*\n\s*from correct_python_programs\.{algo_name} import {algo_name})(\s*\n\s*else:\s*\n\s*from python_programs\.{algo_name} import {algo_name})"
+    replacement = (
+        rf"\1"
+        f"\nelif pytest.fixed:\n    from fixed_programs.{algo_name} import {algo_name}"
+        rf"\2"
+    )
+
+    updated_content, count = re.subn(pattern, replacement, content)
+
+    
+    with open(f"./test_{algo_name}.py", "w") as file:
+        file.write(updated_content)
+
+    return f"./test_{algo_name}.py"
 
 def run_pytest(test_file, flag, logs, algo_name):
     flag_key = flag.lstrip('-')
@@ -73,17 +84,25 @@ def main():
     for filename in os.listdir(source_dir):
         if filename.endswith(".py"):
             algo_name = filename[:-3]
-            total_algos += 1
 
+            test_file = create_test_file(algo_name)
+
+            if not len(test_file):
+                continue
+
+            total_algos += 1
+            if algo_name == "levenshtein" or algo_name=="knapsack":  # You can comment this line if you want to run these code as well
+                print("skipping levenshtein cause it takes way too long to run it.")
+                continue
             run_debug_agent(algo_name, logs)
 
             fixed_path = os.path.join(fixed_dir, f"{algo_name}.py")
             if not os.path.exists(fixed_path):
                 print(f"❌ No fixed file found for {algo_name}")
                 continue
+            
 
-            test_file = create_test_file(algo_name)
-
+            
             run_pytest(test_file, "--correct", logs, algo_name)
             output = run_pytest(test_file, "--fixed", logs, algo_name)
 
@@ -93,7 +112,7 @@ def main():
             if passed == total and total > 0:
                 passed_algos += 1
 
-            os.remove(test_file)
+            #os.remove(test_file)
 
     print(f"\n🎯 Summary: {passed_algos} / {total_algos} algorithms passed all their test cases with the fixed code")
 

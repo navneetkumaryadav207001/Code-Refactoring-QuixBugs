@@ -7,6 +7,7 @@ import sys
 import subprocess
 import types
 
+
 def py_try(algo, *args, correct=False,fixed=False):
     if not fixed:
         module = __import__("python_programs."+algo)
@@ -64,6 +65,17 @@ if __name__ == "__main__":
             print(sys.exc_info())
         print()
 
+        print("Fixed Python:")
+        fixed_module = __import__("fixed_programs."+algo+"_test")
+        fixed_fx = getattr(fixed_module, algo+"_test")
+        try:
+            getattr(fixed_fx,"main")()
+        except:
+            print(sys.exc_info())
+        print()
+
+
+
     else:
         working_file = open("json_testcases/"+algo+".json", 'r')
 
@@ -81,9 +93,10 @@ if __name__ == "__main__":
             py_out_good = py_try(algo, *copy.deepcopy(test_in), correct=True, fixed=True)
             print("Correct Python: " + prettyprint(py_out_good))
 
-            # check bad Python version
-            py_out_test = py_try(algo, *copy.deepcopy(test_in))
-            print("Bad Python: " + prettyprint(py_out_test))
+            # check bad Python 
+            if(sys.argv[2] == "BAD"):
+                py_out_test = py_try(algo, *copy.deepcopy(test_in))
+                print("Bad Python: " + prettyprint(py_out_test))
 
             py_out_fixed = py_try(algo, *copy.deepcopy(test_in), fixed=True)
             print("Fixed Python: " + prettyprint(py_out_fixed))

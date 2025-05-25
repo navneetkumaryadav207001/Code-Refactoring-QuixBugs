@@ -1,0 +1,97 @@
+✅ bitcount: Fixed version passed 9/9 tests
+✅ breadth_first_search: Fixed version passed 0/0 tests
+Test file doesnt Extst for breadth_first_search_test so the program is skipped
+✅ bucketsort: Fixed version passed 7/7 tests
+✅ depth_first_search: Fixed version passed 0/0 tests
+Test file doesnt Extst for depth_first_search_test so the program is skipped
+✅ detect_cycle: Fixed version passed 0/0 tests
+Test file doesnt Extst for detect_cycle_test so the program is skipped
+✅ find_first_in_sorted: Fixed version passed 7/7 tests
+✅ find_in_sorted: Fixed version passed 7/7 tests
+✅ flatten: Fixed version passed 7/7 tests
+✅ gcd: Fixed version passed 6/6 tests
+✅ get_factors: Fixed version passed 11/11 tests
+✅ hanoi: Fixed version passed 8/8 tests
+✅ is_valid_parenthesization: Fixed version passed 3/3 tests
+✅ kheapsort: Fixed version passed 4/4 tests
+skipping levenshtein cause it takes way too long to run it.
+✅ kth: Fixed version passed 7/7 tests
+✅ lcs_length: Fixed version passed 9/9 tests
+skipping levenshtein cause it takes way too long to run it.
+✅ lis: Fixed version passed 12/12 tests
+✅ longest_common_subsequence: Fixed version passed 7/10 tests
+✅ max_sublist_sum: Fixed version passed 6/6 tests
+✅ mergesort: Fixed version passed 14/14 tests
+❌ No fixed file found for minimum_spanning_tree
+Test file doesnt Extst for minimum_spanning_tree_test so the program is skipped
+✅ next_palindrome: Fixed version passed 5/5 tests
+✅ next_permutation: Fixed version passed 8/8 tests
+Test file doesnt Extst for node so the program is skipped
+✅ pascal: Fixed version passed 5/5 tests
+✅ possible_change: Fixed version passed 10/10 tests
+✅ powerset: Fixed version passed 5/5 tests
+✅ quicksort: Fixed version passed 13/13 tests
+✅ reverse_linked_list: Fixed version passed 0/0 tests
+❌ No fixed file found for reverse_linked_list_test
+✅ rpn_eval: Fixed version passed 6/6 tests
+✅ shortest_paths: Fixed version passed 3/3 tests
+Test file doesnt Extst for shortest_paths_test so the program is skipped
+✅ shortest_path_length: Fixed version passed 0/0 tests
+✅ shortest_path_lengths: Fixed version passed 4/4 tests
+❌ No fixed file found for shortest_path_lengths_test
+Test file doesnt Extst for shortest_path_length_test so the program is skipped
+✅ shunting_yard: Fixed version passed 6/6 tests
+✅ sieve: Fixed version passed 6/6 tests
+✅ sqrt: Fixed version passed 7/7 tests
+✅ subsequences: Fixed version passed 4/12 tests
+✅ topological_ordering: Fixed version passed 0/0 tests
+Test file doesnt Extst for topological_ordering_test so the program is skipped
+✅ to_base: Fixed version passed 10/10 tests
+✅ wrap: Fixed version passed 0/5 tests
+
+🎯 Summary: 28 / 50 algorithms passed all their test cases with the fixed code
+
+
+
+My Thoughts On this test :
+    all 9 graph based algos failed
+    2 algos were so those will not count. cause they will work if given enough time.
+    interesting part is these 4 algos which failed becuase of 
+    longest_common_subsequence 7/10
+    shortest_path_length 0/0
+
+
+
+
+✅ bitcount: Fixed version passed 9/9 tests
+✅ bucketsort: Fixed version passed 7/7 tests
+✅ find_first_in_sorted: Fixed version passed 7/7 tests
+✅ find_in_sorted: Fixed version passed 7/7 tests
+✅ flatten: Fixed version passed 7/7 tests
+✅ gcd: Fixed version passed 6/6 tests
+✅ get_factors: Fixed version passed 11/11 tests
+✅ hanoi: Fixed version passed 8/8 tests
+✅ is_valid_parenthesization: Fixed version passed 3/3 tests
+✅ kheapsort: Fixed version passed 4/4 tests
+✅ kth: Fixed version passed 7/7 tests
+✅ lcs_length: Fixed version passed 9/9 tests
+✅ lis: Fixed version passed 12/12 tests
+✅ longest_common_subsequence: Fixed version passed 7/10 tests
+✅ max_sublist_sum: Fixed version passed 6/6 tests
+✅ next_palindrome: Fixed version passed 5/5 tests
+✅ next_permutation: Fixed version passed 8/8 tests
+✅ pascal: Fixed version passed 5/5 tests
+✅ possible_change: Fixed version passed 10/10 tests
+✅ powerset: Fixed version passed 5/5 tests
+✅ quicksort: Fixed version passed 13/13 tests
+✅ rpn_eval: Fixed version passed 6/6 tests
+✅ shortest_paths: Fixed version passed 3/3 tests
+✅ shortest_path_lengths: Fixed version passed 4/4 tests
+✅ shunting_yard: Fixed version passed 6/6 tests
+✅ sieve: Fixed version passed 6/6 tests
+✅ sqrt: Fixed version passed 7/7 tests
+✅ subsequences: Fixed version passed 4/12 tests
+✅ to_base: Fixed version passed 10/10 tests
+✅ wrap: Fixed version passed 0/5 tests
+
+🎯 Summary: 28 / 50 algorithms passed all their test cases with the fixed code

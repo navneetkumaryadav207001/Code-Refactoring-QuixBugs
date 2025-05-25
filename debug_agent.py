@@ -10,8 +10,14 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain import hub
 import re
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+from pydantic import FilePath
 # Set up API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDmRdVGppLT6FBq3ouKzk1YCxWNdAQTx0s"
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 class PythonDebugAgent:
     def __init__(self):
@@ -27,8 +33,9 @@ class PythonDebugAgent:
             self.write_file_tool,
             self.run_code_tool,
             #self.analyze_error_tool,
-            self.get_python_docs_tool,
-            self.test_algorithm
+            #self.get_python_docs_tool,
+            self.test_algorithm,
+            self.read_fixed_file
         ]
         
         prompt = hub.pull("hwchase17/react")
@@ -50,6 +57,16 @@ class PythonDebugAgent:
     @tool
     def read_file_tool(self, filepath: str) -> str:
         """Read the contents of a Python file"""
+        try:
+            with open(filepath, 'r') as f:
+                return f.read()
+        except Exception as e:
+            return f"Error reading file: {str(e)}"
+        
+    @tool
+    def read_fixed_file() -> str:
+        """Read the current solution"""
+        filepath = f"fixed_programs/{sys.argv[1]}.py"
         try:
             with open(filepath, 'r') as f:
                 return f.read()
@@ -135,11 +152,23 @@ class PythonDebugAgent:
             return f"Error searching documentation: {str(e)}"
 
     @tool
-    def test_algorithm() -> str:
+    def test_algorithm(long: str) -> str:
+        """Test the algorithm using the provided tester"""
+        time = 30
+        if(long == "yes"):
+            time = 10000
+        algo_name = sys.argv[1]
+        try:
+            result = subprocess.run([sys.executable, "tester.py", algo_name, "NOT_BAD"], 
+                                  capture_output=True, text=True, timeout=time)
+            return result.stdout + result.stderr
+        except Exception as e:
+            return f"Error testing algorithm: {str(e)}"
+    def test_algorithm_first(self) -> str:
         """Test the algorithm using the provided tester"""
         algo_name = sys.argv[1]
         try:
-            result = subprocess.run([sys.executable, "tester.py", algo_name], 
+            result = subprocess.run([sys.executable, "tester.py", algo_name,"BAD"], 
                                   capture_output=True, text=True, timeout=30)
             return result.stdout + result.stderr
         except Exception as e:
@@ -170,7 +199,7 @@ class PythonDebugAgent:
             
             # Test the original code to see what errors occur
             print("Testing original code...")
-            test_result = self.test_algorithm(algo_name)
+            test_result = self.test_algorithm_first()
             print("Test result:")
             print(test_result)
             print("-" * 50)
@@ -202,7 +231,14 @@ class PythonDebugAgent:
             2. Search for Python documentation or StackOverFlow if needed
             3. Test code snippets using test_algorithm tool
             4. Write the final fixed
+            5. if error read the fixed 
 
+            you can also provide string yes or no to test_algo increase the time to avoid timeout error if required
+            test_algorithm takes only one input i.e. yes or no as string for time.
+            other than you cant provide it anything not even code it will automatically run on the code in fixed file
+            
+            Before give the final answer run test_algorithm and read_fixed_file to check if everything is correct one last time
+            if the algo is too expensive timewise then avoid using test frequently instead use read_file to check and only run test if sure.
             do not use backticks while write the file:
             example:
             Action: write_file_tool # is correct
