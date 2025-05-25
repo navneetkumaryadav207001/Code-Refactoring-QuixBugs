@@ -12,6 +12,7 @@ from langchain import hub
 import re
 from dotenv import load_dotenv
 import os
+import time 
 
 load_dotenv()
 
@@ -29,7 +30,7 @@ class PythonDebugAgent:
         """Initialize the ReAct agent with debugging tools"""
         tools = [
             self.search_tool,
-            self.read_file_tool,
+            #self.read_file_tool,
             self.write_file_tool,
             self.run_code_tool,
             #self.analyze_error_tool,
@@ -246,7 +247,8 @@ class PythonDebugAgent:
             Action: `write_file_tool` is not 
             you can use it for action input though
             """
-            
+
+            time.sleep(2)
             response = self.agent_executor.invoke({"input": fix_prompt})
             
             print("Agent response:")

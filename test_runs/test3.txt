@@ -1,0 +1,47 @@
+✅ bitcount: Fixed version passed 9/9 tests
+✅ breadth_first_search: Fixed version passed 5/5 tests
+✅ bucketsort: Fixed version passed 7/7 tests
+✅ depth_first_search: Fixed version passed 5/5 tests
+✅ detect_cycle: Fixed version passed 6/6 tests
+✅ find_first_in_sorted: Fixed version passed 7/7 tests
+✅ find_in_sorted: Fixed version passed 7/7 tests
+✅ flatten: Fixed version passed 7/7 tests
+✅ gcd: Fixed version passed 6/6 tests
+✅ get_factors: Fixed version passed 11/11 tests
+✅ hanoi: Fixed version passed 8/8 tests
+✅ is_valid_parenthesization: Fixed version passed 3/3 tests
+✅ kheapsort: Fixed version passed 4/4 tests
+skipping levenshtein cause it takes way too long to run it.
+❌ No fixed file found for kth
+✅ lcs_length: Fixed version passed 9/9 tests
+skipping levenshtein cause it takes way too long to run it.
+✅ lis: Fixed version passed 12/12 tests
+✅ longest_common_subsequence: Fixed version passed 7/10 tests
+❌ No fixed file found for max_sublist_sum
+✅ mergesort: Fixed version passed 14/14 tests
+✅ minimum_spanning_tree: Fixed version passed 3/3 tests
+❌ No fixed file found for next_palindrome
+✅ next_permutation: Fixed version passed 8/8 tests
+✅ pascal: Fixed version passed 5/5 tests
+❌ No fixed file found for possible_change
+✅ powerset: Fixed version passed 5/5 tests
+✅ quicksort: Fixed version passed 13/13 tests
+✅ reverse_linked_list: Fixed version passed 3/3 tests
+✅ rpn_eval: Fixed version passed 6/6 tests
+✅ shortest_paths: Fixed version passed 3/3 tests
+❌ No fixed file found for shortest_path_length
+✅ shortest_path_lengths: Fixed version passed 4/4 tests
+✅ shunting_yard: Fixed version passed 6/6 tests
+✅ sieve: Fixed version passed 6/6 tests
+✅ sqrt: Fixed version passed 7/7 tests
+✅ subsequences: Fixed version passed 4/12 tests
+✅ topological_ordering: Fixed version passed 0/3 tests
+✅ to_base: Fixed version passed 10/10 tests
+✅ wrap: Fixed version passed 0/5 tests
+
+🎯 Summary: 29 / 40 algorithms passed all their test cases with the fixed code
+
+
+Key Observations:
+
+some are failing beacuse api limits reached  5 of , 2 skipped and 4 didnt passed the test

@@ -83,18 +83,18 @@ def main():
         if filename.endswith(".py"):
             algo_name = filename[:-3]
 
-            test_file = create_test_file(algo_name)
-
-            if not len(test_file):
-                continue
-
             total_algos += 1
             if algo_name == "levenshtein" or algo_name=="knapsack":  # You can comment this line if you want to run these code as well
                 print("skipping levenshtein cause it takes way too long to run it.")
                 os.remove(test_file)
                 continue
-            
+
             run_debug_agent(algo_name, logs)
+
+            test_file = create_test_file(algo_name)
+
+            if not len(test_file):
+                continue
 
             fixed_path = os.path.join(fixed_dir, f"{algo_name}.py")
             if not os.path.exists(fixed_path):
