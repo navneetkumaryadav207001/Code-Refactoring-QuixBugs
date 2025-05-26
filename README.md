@@ -9,7 +9,23 @@ From 2011 to 2013, mobile app search startup Quixey ran a challenge in which pro
 
 All Python is written in Python3.
 
-To run both defective versions of a program against their tests, as well as the corrected Python version, use the test driver:
+1. Clone the Repository
+2. Setup .env file with Google Gemini API KEY as
+         Google_API_KEY = "your_api_key"
+3. run any tool as you wish:
+   ```{python}
+    python debug_agent.py {algo} # Runs agent and fixes file in fixed_
+   ```
+   ```{python}
+    python testall2.py # Runs agent on all 40 programs
+   ```
+   ```{python}
+    ./clear.ps1 # Clears fixed_programs (Windows)
+   ```
+    ```{python}
+    python readable.py # Converts log.json to log.md
+   ```
+   
 
 <h1>🛠️ Debug Agent for QuixBugs</h1>
   <p>We are building a <strong>LangChain + Gemini-based autonomous debugging agent</strong> to automatically fix buggy algorithms in the 
