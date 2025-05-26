@@ -14,7 +14,7 @@ All Python is written in Python3.
          Google_API_KEY = "your_api_key"
 3. run any tool as you wish:
    ```{python}
-    python debug_agent.py {algo} # Runs agent and fixes file in fixed_
+    python debug_agent.py {algo} # Runs agent and save fixed file in fixed_programs folder
    ```
    ```{python}
     python testall2.py # Runs agent on all 40 programs
